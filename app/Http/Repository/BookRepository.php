@@ -22,10 +22,11 @@ class BookRepository
         return $this->book->all();
     }
 
-    public function getSingleBook($table_field, $query)
-    {
-        return $this->book->where($table_field, $query)->get();
-    }
+    // get single book in the application
+//    public function getSingleBook($table_field, $query)
+//    {
+//        return $this->book->where($table_field, $query)->get();
+//    }
 
     public  function updateUser($request)
     {
