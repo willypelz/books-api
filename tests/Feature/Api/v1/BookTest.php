@@ -51,17 +51,17 @@ class BookTest extends TestCase
             ->assertJson(["status_code" => JsonResponse::HTTP_OK]);
     }
 
-//    /**
-//     * A basic feature test example.
-//     *
-//     * @return void
-//     */
-//    /** @test */
-//    public function it_returns_succedsddds_when_correct_book_data_is_supplied_for_registration()
-//    {
-//
-////        $response = $this->getJson('/api/v1/books/101');
-////        $response->assertStatus(JsonResponse::HTTP_NOT_FOUND)
-////            ->assertJson(["status_code" => JsonResponse::HTTP_NOT_FOUND]);
-//    }
+    /**
+     * A basic feature test example.
+     *
+     * @return void
+     */
+    /** @test */
+    public function it_returns_succedsddds_when_correct_book_data_is_supplied_for_registration()
+    {
+
+        $response = $this->getJson('/api/v1/books/' . $this->book->id);
+        $response->assertStatus(JsonResponse::HTTP_NOT_FOUND)
+            ->assertJson(["status_code" => JsonResponse::HTTP_NOT_FOUND]);
+    }
 }
