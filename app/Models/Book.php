@@ -13,8 +13,10 @@ class Book extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'isbn', 'authors', 'number_of_pages', 'publisher', 'release_date'
+        'name', 'isbn', 'authors', 'number_of_pages', 'country', 'publisher', 'release_date'
     ];
+
     protected $dates = ['deleted_at'];
+
 
 }

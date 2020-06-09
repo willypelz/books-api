@@ -86,7 +86,6 @@ class ApiResponse extends Controller
      */
     public function respondWithError($message)
     {
-
         return $this->respond([
             'error' => $message
         ]);
@@ -112,8 +111,10 @@ class ApiResponse extends Controller
     public function respondDeleted($message)
     {
         return $this->setStatusCode(IlluminateResponse::HTTP_OK)->respond([
+            'status_code' => IlluminateResponse::HTTP_NO_CONTENT,
+            'status' => 'success',
             'message' => $message,
-            'status_code' => $this->getStatusCode()
+            'data' => []
         ]);
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\v1\Books;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BookResource extends JsonResource
@@ -9,7 +10,7 @@ class BookResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param $data
      * @return array
      */
     public function toArray($data)

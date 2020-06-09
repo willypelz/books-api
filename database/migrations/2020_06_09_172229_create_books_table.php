@@ -18,6 +18,7 @@ class CreateBooksTable extends Migration
             $table->string('name');
             $table->char('isbn', 40);
             $table->string('authors');
+            $table->string('country');
             $table->integer('number_of_pages');
             $table->string('publisher');
             $table->date('release_date');

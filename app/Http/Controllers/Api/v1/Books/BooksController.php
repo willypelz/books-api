@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Library\RestFullResponse\ApiResponse;
 use App\Http\Repository\BookRepository;
 use App\Http\Requests\CreateBookRequest;
+use App\Http\Requests\UpdateBookRequest;
 use App\Http\Resources\v1\Books\BookResource;
 use App\Http\Resources\v1\Books\BookResourceCollection;
 use App\Models\Book;
@@ -64,14 +65,55 @@ class BooksController extends Controller
     public function store(CreateBookRequest $request, Book $book)
     {
         $book = $book->create($request->toArray());
-        return $this->apiResponse->respondWithNoPagination(new BookResource($book) , 'Book created successfully');
+        return $this->apiResponse->respondWithNoPagination(new BookResource($book) ,
+            'Book created successfully');
+    }
+
+
+    /**
+     * @group Book management
+     *
+     *  Books Collection
+     *
+     * An Endpoint to get all Books in the system
+     *
+     * @param Book $book
+     * @return \Illuminate\Http\JsonResponse
+     * @apiResourceCollection \App\Http\Resources\v1\Book\BookResourceCollection
+     * @apiResourceModel \App\Models\Book
+     */
+    public function show(Book $book)
+    {
+        return $this->apiResponse->respondWithNoPagination($book , 'Book fetch successfully');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param UpdateBookRequest $request
+     * @return void
+     */
+    public function update(UpdateBookRequest $request)
+    {
+      $updatedBook =  $this->bookRepository->updateUser($request);
+        return $this->apiResponse->respondWithNoPagination($updatedBook ,
+            "The book $updatedBook->name was updated successfully");
     }
 
 
 
-
-
-
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Book $book
+     * @return void
+     * @throws \Exception
+     */
+    public function destroy(Book $book)
+    {
+        $book->delete();
+        return $this->apiResponse->respondDeleted("The book $book->name was deleted successfully");
+    }
 
 
 
@@ -188,20 +230,20 @@ class BooksController extends Controller
 ////        return apiResponse(true, trans('Updated successfully'), [],
 ////            JsonResponse::HTTP_OK);
 //    }
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param Book $book
-     * @return void
-     */
-    public function destroy(Book $book)
-    {
-        //
-//        $user->delete();
-//        return apiResponse(true, trans('deleted succesfully'), [], JsonResponse::HTTP_OK);
-    }
+//
+//
+//    /**
+//     * Remove the specified resource from storage.
+//     *
+//     * @param Book $book
+//     * @return void
+//     */
+//    public function destroy(Book $book)
+//    {
+//        //
+////        $user->delete();
+////        return apiResponse(true, trans('deleted succesfully'), [], JsonResponse::HTTP_OK);
+//    }
 
 
 }
