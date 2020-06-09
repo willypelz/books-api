@@ -12,10 +12,22 @@ class BookResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray($data)
     {
         return [
-            'name' => $this->name
+            'id' => $data->id,
+            'name' => $data->name,
+            'isbn' => $data->isbn,
+            'authors' => is_array($data->authors) ? $data->authors : self::formatToArray($data->authors),
+            'number_of_pages' => $data->number_of_pages,
+            'publisher' => $data->publisher,
+            'country' => $data->country,
+            'release_date' => $data->release_date,
         ];
+    }
+
+    public function formatToArray($data)
+    {
+        return array_filter(explode(',', $data));
     }
 }

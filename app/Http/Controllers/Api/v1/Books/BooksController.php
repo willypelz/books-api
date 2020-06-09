@@ -3,39 +3,81 @@
 namespace App\Http\Controllers\Api\v1\Books;
 
 use App\Http\Controllers\Controller;
+use App\Http\Library\RestFullResponse\ApiResponse;
+use App\Http\Repository\BookRepository;
+use App\Http\Requests\CreateBookRequest;
+use App\Http\Resources\v1\Books\BookResource;
+use App\Http\Resources\v1\Books\BookResourceCollection;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
 class BooksController extends Controller
 {
+    protected $bookRepository;
+    protected $apiResponse;
 
+
+    /**
+     * BooksController constructor.
+     * @param BookRepository $bookRepository
+     * @param ApiResponse $apiResponse
+     */
+    public function __construct(BookRepository $bookRepository, ApiResponse $apiResponse)
+    {
+        $this->bookRepository = $bookRepository;
+        $this->apiResponse = $apiResponse;
+    }
+
+    /**
+     * @group Book management
+     *
+     *  Book Collection
+     *
+     * An Endpoint to get all Book in the system
+     *
+     * @param Book $books
+     * @return \Illuminate\Http\JsonResponse
+     * @apiResourceCollection \App\Http\Resources\v1\Book\BookResourceCollection
+     * @apiResourceModel \App\Models\Book
+     */
+    public function index()
+    {
+        return $this->apiResponse->respondWithNoPagination(
+            new BookResourceCollection($this->bookRepository->getAllBooks())
+        );
+    }
 
 
     /**
      * @group Book management
      *
-     *  Users Collection
+     *  Books Collection
      *
-     * An Endpoint to get all users in the system
+     * An Endpoint to get all Books in the system
      *
-     * @param Book $books
+     * @param CreateBookRequest $request
+     * @param Book $book
      * @return \Illuminate\Http\JsonResponse
-     * @apiResourceCollection \App\Http\Resources\v1\User\UserResourceCollection
-     * @apiResourceModel \App\Models\User
+     * @apiResourceCollection \App\Http\Resources\v1\Book\BookResourceCollection
+     * @apiResourceModel \App\Models\Book
      */
-    public function index(Book $books)
+    public function store(CreateBookRequest $request, Book $book)
     {
-
-
-
-//      return  Book::all();
-        return $books;
-//        $users = User::where('id', '!=', $request->user()->id)->get();
-//        return apiResponse(true, trans('Users fetched successfully'),
-//            new UserResourceCollection($users), JsonResponse::HTTP_OK
-//
-//        );
+        $book = $book->create($request->toArray());
+        return $this->apiResponse->respondWithNoPagination(new BookResource($book) , 'Book created successfully');
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
 //
 //    /**

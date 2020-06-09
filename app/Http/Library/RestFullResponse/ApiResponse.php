@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use Response;
 
 
-
 class ApiResponse extends Controller
 {
 
@@ -29,7 +28,7 @@ class ApiResponse extends Controller
      */
     public function setStatusCode($statusCode)
     {
-        $this->statusCode  = $statusCode;
+        $this->statusCode = $statusCode;
 
         return $this;
     }
@@ -51,8 +50,8 @@ class ApiResponse extends Controller
     public function respondNotFound($message = 'Not found!')
     {
         return $this->setStatusCode(IlluminateResponse::HTTP_NOT_FOUND)->respondWithError([
-            'message' =>$message,
-            'statusCode' => $this->getStatusCode()
+            'message' => $message,
+            'status_code' => $this->getStatusCode()
         ]);
     }
 
@@ -63,8 +62,8 @@ class ApiResponse extends Controller
     public function respondInternalError($message = 'Internal Error!')
     {
         return $this->setStatusCode(IlluminateResponse::HTTP_INTERNAL_SERVER_ERROR)->respondWithError([
-            'message' =>$message,
-            'statusCode' => $this->getStatusCode()
+            'message' => $message,
+            'status_code' => $this->getStatusCode()
         ]);
     }
 
@@ -75,8 +74,8 @@ class ApiResponse extends Controller
     public function respondBadRequest($message = 'Internal Error!')
     {
         return $this->setStatusCode(IlluminateResponse::HTTP_BAD_REQUEST)->respondWithError([
-            'message' =>$message,
-            'statusCode' => $this->getStatusCode()
+            'message' => $message,
+            'status_code' => $this->getStatusCode()
         ]);
     }
 
@@ -102,7 +101,7 @@ class ApiResponse extends Controller
     {
         return $this->setStatusCode(IlluminateResponse::HTTP_CREATED)->respond([
             'message' => $message,
-            'statusCode' => $this->getStatusCode()
+            'status_code' => $this->getStatusCode()
         ]);
     }
 
@@ -114,9 +113,26 @@ class ApiResponse extends Controller
     {
         return $this->setStatusCode(IlluminateResponse::HTTP_OK)->respond([
             'message' => $message,
-            'statusCode' => $this->getStatusCode()
+            'status_code' => $this->getStatusCode()
         ]);
     }
+
+
+    /**
+     * @param $data
+     * @param $message
+     * @return mixed
+     */
+    public function respondWithNoPagination($data, $message = 'Data fetched Successful')
+    {
+        return $this->setStatusCode(IlluminateResponse::HTTP_OK)->respond([
+            'status_code' => $this->getStatusCode(),
+            'status' => 'success',
+            'data' => $data,
+            'message' => $message,
+        ]);
+    }
+
 
     /**
      * @param $books
@@ -144,6 +160,13 @@ class ApiResponse extends Controller
         return $this->respond($data);
 
     }
+
+    function getErrorMessages(\Illuminate\Contracts\Validation\Validator $validator){
+        $messages =  $validator->errors()->getMessages();
+        $replaced = str_replace(['[',']', '"', '.','id'], '', json_encode(array_values($messages)));
+        return explode(',',$replaced);
+    }
+
 
 
 }

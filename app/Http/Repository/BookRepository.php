@@ -19,12 +19,12 @@ class BookRepository
 
     public function getAllBooks()
     {
-        return $this->book - all();
+        return $this->book->all();
     }
 
-    public function getSingleBook()
+    public function getSingleBook($table_field, $query)
     {
-        return
+        return $this->book->where($table_field, $query)->get();
     }
 
 }
