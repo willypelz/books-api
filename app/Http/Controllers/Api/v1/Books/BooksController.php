@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Api\v1\Books;
 
 use App\Http\Controllers\Controller;
-use App\Model\Book;
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 class BooksController extends Controller
 {
-    //
+
+
+
     /**
      * @group Book management
      *
@@ -23,7 +25,10 @@ class BooksController extends Controller
      */
     public function index(Book $books)
     {
-        //
+
+
+
+//      return  Book::all();
         return $books;
 //        $users = User::where('id', '!=', $request->user()->id)->get();
 //        return apiResponse(true, trans('Users fetched successfully'),
