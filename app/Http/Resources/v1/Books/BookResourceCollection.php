@@ -9,11 +9,20 @@ class BookResourceCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param $data
      * @return array
      */
-    public function toArray($request)
+    public function toArray($data)
     {
-        return parent::toArray($request);
+        return $this->collection->transform(function ($data){
+            return $this->transformData($data);
+        })->toArray();
+    }
+
+    private function transformData($data)
+    {
+        return [
+            'name' => $data->name,
+        ];
     }
 }
