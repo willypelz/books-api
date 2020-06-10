@@ -24,5 +24,6 @@ use Illuminate\Support\Facades\Route;
 Route::namespace('Api\v1')->prefix('v1')->group(function () {
     Route::group(['namespace' => 'Books'], function () {
         Route::resource('books', 'BooksController');
+        Route::get('external-books', 'BooksController@externalBook')->name('books.external');
     });
 });

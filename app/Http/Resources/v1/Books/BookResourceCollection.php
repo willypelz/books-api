@@ -22,14 +22,14 @@ class BookResourceCollection extends ResourceCollection
     private function transformData($data)
     {
         return [
-            'id' => $data->id,
-            'name' => $data->name,
-            'isbn' => $data->isbn,
-            'authors' => is_array($data->authors) ? $data->authors : self::formatToArray($data->authors),
-            'number_of_pages' => $data->number_of_pages,
-            'publisher' => $data->publisher,
-            'country' => $data->country,
-            'release_date' => $data->release_date,
+            'id' => $data,
+//            'name' => $data->name,
+//            'isbn' => $data->isbn,
+//            'authors' => is_array($data->authors) ? $data->authors : self::formatToArray($data->authors),
+//            'number_of_pages' => $data->number_of_pages,
+//            'publisher' => $data->publisher,
+//            'country' => $data->country,
+//            'release_date' => $data->release_date,
         ];
     }
 

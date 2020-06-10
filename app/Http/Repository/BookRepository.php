@@ -4,11 +4,14 @@
 namespace App\Http\Repository;
 
 
+use App\Library\Traits\IceAndFireTrait;
 use App\Models\Book;
 use function GuzzleHttp\Promise\all;
 
 class BookRepository
 {
+    use IceAndFireTrait;
+
     private $book;
 
     public function __construct(Book $book)
@@ -39,6 +42,10 @@ class BookRepository
         $this->book->release_date = @$request->release_date;
         $this->book->save();
         return $this->book;
+    }
+
+    public  function getAllBooksFromExternal(){
+        return $this->getIceAndFireBooks();
     }
 
 }

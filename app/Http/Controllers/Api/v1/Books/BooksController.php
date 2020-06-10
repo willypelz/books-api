@@ -65,7 +65,7 @@ class BooksController extends Controller
     public function store(CreateBookRequest $request, Book $book)
     {
         $book = $book->create($request->toArray());
-        return $this->apiResponse->respondWithNoPagination(new BookResource($book) ,
+        return $this->apiResponse->respondWithNoPagination(new BookResource($book),
             'Book created successfully');
     }
 
@@ -84,7 +84,7 @@ class BooksController extends Controller
      */
     public function show(Book $book)
     {
-        return $this->apiResponse->respondWithNoPagination($book , 'Book fetch successfully');
+        return $this->apiResponse->respondWithNoPagination($book, 'Book fetch successfully');
     }
 
     /**
@@ -95,11 +95,10 @@ class BooksController extends Controller
      */
     public function update(UpdateBookRequest $request)
     {
-      $updatedBook =  $this->bookRepository->updateUser($request);
-        return $this->apiResponse->respondWithNoPagination($updatedBook ,
+        $updatedBook = $this->bookRepository->updateUser($request);
+        return $this->apiResponse->respondWithNoPagination($updatedBook,
             "The book $updatedBook->name was updated successfully");
     }
-
 
 
     /**
@@ -115,6 +114,32 @@ class BooksController extends Controller
         return $this->apiResponse->respondDeleted("The book $book->name was deleted successfully");
     }
 
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function externalBook(Request $request)
+    {
+        $query = "A Clash of Kings";
+        $books = $this->bookRepository->getAllBooksFromExternal();
+
+        $bookCollection = array();
+
+        for ($bk = 0; $bk < count($books); $bk++) {
+            if ($books[$bk]['name'] == $query) {
+                array_push($bookCollection, $books[$bk]);
+            }
+        }
+//        $filteredBook = collect($books)->filter(
+//            function ($book) use ($query) {
+//                return ($book['name'] == $query) ??  (object) $book ;
+//            });
+//        return  $filteredBook;
+        return $this->apiResponse->respondWithNoPagination(new BookResourceCollection($filteredBook));
+    }
 
 
 
