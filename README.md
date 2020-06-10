@@ -64,6 +64,15 @@ when you want to generate a coverage
 if you are using window command line with no bash you will have to use the `\`   </span>
 
 ## Test Coverage(Report) Overview
+
+1. To view the test coverage 
+2. navigate to the coverage folder 
+3. click on the `index.html` open with any browser
+4. To see risk report 
+5. In the coverage folder 
+6. click in the `dashboard.html` open with any browser (100% free from risk)
+
+
 ![Test Coverage(Report) Overview](https://github.com/willypelz/books-api/blob/master/testcoverage-snapshot.png)
 
 
