@@ -63,11 +63,20 @@ when you want to generate a coverage
 <span style="color:red">Please note that the  `/` is for linux and mac terminal which applies to bash terminal also.
 if you are using window command line with no bash you will have to use the `\`   </span>
 
-![Test Coverage(Report) Overview](https://github.com/willypelz/books-api/blob/master/Optimized-testcoverage-snapshot.png)
+## Test Coverage(Report) Overview
+![Test Coverage(Report) Overview](https://github.com/willypelz/books-api/blob/master/testcoverage-snapshot.png)
+
+#Updates
+
+1. There are still advance optimization and refactoring that can still be done in this project
+2. More validation checks. The validation checks can be increased to take care of users mistake and other case senarios 
 
 
-![Test Coverage(Report) Overview](https://ibb.co/t3GKyKq)
 
+#Developer(Softwaredef)
 
+1. Name: Asefon Michael Pelumi 
+2. Nickname: Softwaredef
+3. Mail: pelumiasefon@gmail.com
 
-![Test Coverage(Report) Overview](https://ibb.co/FmzrvtT)
+Thanks. If you have any problem setting it up or complain you can kindly post them on issues or message me directly
