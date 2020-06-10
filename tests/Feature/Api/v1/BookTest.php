@@ -102,4 +102,48 @@ class BookTest extends TestCase
         $response->assertStatus(JsonResponse::HTTP_OK)
             ->assertJson(["status_code" => JsonResponse::HTTP_NO_CONTENT]);
     }
+
+    /**
+     * A basic feature test example.
+     *
+     * @return void
+     */
+    /** @test */
+    public function it_return_Invalid_when_content_is_deleted()
+    {
+
+        $response = $this->getJson('/api/v1/external-books');
+        $response->assertStatus(JsonResponse::HTTP_OK)
+            ->assertJson([
+                "error" => "Invalid Book name supplied"
+            ]);
+    }
+    /**
+     * A basic feature test example.
+     *
+     * @return void
+     */
+    /** @test */
+    public function it_returns_error_when_wrong_data_is_supplied()
+    {
+
+        $response = $this->getJson('/api/v1/external-books/?name=' . "Wrong title of Kings");
+        $response->assertStatus(JsonResponse::HTTP_OK);
+    }
+
+    /**
+     * A basic feature test example.
+     *
+     * @return void
+     */
+    /** @test */
+    public function it_returns_correct_from_External_api()
+    {
+        $query = "A Clash of Kings";
+        $response = $this->getJson("/api/v1/external-books/?name=$query");
+        $response->assertStatus(JsonResponse::HTTP_OK);
+
+    }
+
+
 }

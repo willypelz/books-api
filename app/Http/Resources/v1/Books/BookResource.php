@@ -1,5 +1,15 @@
 <?php
 
+/************************************
+ ** File: Book Resource file  ******
+ ** Date: 9th June 2020  ************
+ ** Book Resource file  ************
+ ** Author: Asefon pelumi M. *********
+ ** Senior Software Developer ********
+ * Email: pelumiasefon@gmail.com  ***
+ * **********************************/
+
+
 namespace App\Http\Resources\v1\Books;
 
 use Illuminate\Http\Request;
@@ -27,6 +37,10 @@ class BookResource extends JsonResource
         ];
     }
 
+    /**
+     * @param $data
+     * @return array
+     */
     public function formatToArray($data)
     {
         return array_filter(explode(',', $data));

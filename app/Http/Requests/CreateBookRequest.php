@@ -1,4 +1,12 @@
 <?php
+/***********************************************
+ ** File : CreateBookRequest file
+ ** Date: 9th June 2020  *********************
+ ** CreateBookRequest file
+ ** Author: Asefon pelumi M. ******************
+ ** Senior Software Developer ******************
+ * Email: pelumiasefon@gmail.com  ***************
+ * ***********************************************/
 
 namespace App\Http\Requests;
 

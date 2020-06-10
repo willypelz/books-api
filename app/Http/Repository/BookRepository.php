@@ -1,5 +1,13 @@
 <?php
 
+/************************************
+ ** File: Book Repository file  ******
+ ** Date: 10th June 2020  ************
+ ** Book Repository file  ************
+ ** Author: Asefon pelumi M. *********
+ ** Senior Software Developer ********
+ * Email: pelumiasefon@gmail.com  ***
+ * **********************************/
 
 namespace App\Http\Repository;
 
@@ -20,6 +28,11 @@ class BookRepository
     }
 
 
+    /**
+     * functions to get all books
+     *
+     * @return Book[]|\Illuminate\Database\Eloquent\Collection
+     */
     public function getAllBooks()
     {
         return $this->book->all();
@@ -31,7 +44,14 @@ class BookRepository
 //        return $this->book->where($table_field, $query)->get();
 //    }
 
-    public  function updateUser($request)
+
+    /**
+     * function to update user details
+     *
+     * @param $request
+     * @return Book
+     */
+    public function updateUser($request)
     {
         $this->book->name = $request->name;
         $this->book->isbn = $request->isbn;
@@ -44,8 +64,46 @@ class BookRepository
         return $this->book;
     }
 
-    public  function getAllBooksFromExternal(){
+
+    /**
+     * function to get books from external api
+     *
+     * @return array|string
+     */
+    public function getAllBooksFromExternal()
+    {
         return $this->getIceAndFireBooks();
+    }
+
+
+    /**
+     * function to get find a book by its name
+     *
+     * @param $name
+     * @return array
+     */
+    public function findBookByName($name)
+    {
+        $bookCollection = array();
+
+        $books = $this->getAllBooksFromExternal();
+
+        if (is_string($books)) return $books;
+        for ($bk = 0; $bk < count($books); $bk++) {
+            if ($books[$bk]['name'] == $name) {
+                array_push($bookCollection, $books[$bk]);
+            }
+        }
+
+        return $bookCollection;
+
+//       alternative is to use laravel filter collect helper function or recursion method
+        /**
+         * $filteredBook = collect($books)->filter(
+         * function ($book) use ($query) {
+         * return ($book['name'] == $query) ??   $book ;
+         * });
+         */
     }
 
 }

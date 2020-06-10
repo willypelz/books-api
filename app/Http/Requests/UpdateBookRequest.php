@@ -1,5 +1,14 @@
 <?php
 
+/***********************************************
+ ** File : UpdateBookRequest file
+ ** Date: 9th June 2020  *********************
+ ** UpdateBookRequest file
+ ** Author: Asefon pelumi M. ******************
+ ** Senior Software Developer ******************
+ * Email: pelumiasefon@gmail.com  ***************
+ * ***********************************************/
+
 namespace App\Http\Requests;
 
 use App\Library\Traits\ValidationTrait;
@@ -38,6 +47,9 @@ class UpdateBookRequest extends FormRequest
         ];
     }
 
+    /**
+     * @return array
+     */
     public function messages()
     {
         return [

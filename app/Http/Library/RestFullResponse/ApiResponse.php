@@ -1,5 +1,13 @@
 <?php
 
+/************************************
+ ** File: ApiResponse  file  ******
+ ** Date: 9th June 2020  ************
+ ** Api Response File  ************
+ ** Author: Asefon pelumi M. *********
+ ** Senior Software Developer ********
+ * Email: pelumiasefon@gmail.com  ***
+ * **********************************/
 
 namespace App\Http\Library\RestFullResponse;
 
@@ -14,7 +22,7 @@ class ApiResponse extends Controller
 
     protected $statusCode = IlluminateResponse::HTTP_OK;
 
-    /**
+    /** status code getter
      * @return int
      */
     public function getStatusCode()
@@ -22,7 +30,7 @@ class ApiResponse extends Controller
         return $this->statusCode;
     }
 
-    /**
+    /** status code setter
      * @param $statusCode
      * @return $this
      */
@@ -162,6 +170,10 @@ class ApiResponse extends Controller
 
     }
 
+    /**
+     * @param \Illuminate\Contracts\Validation\Validator $validator
+     * @return array
+     */
     function getErrorMessages(\Illuminate\Contracts\Validation\Validator $validator){
         $messages =  $validator->errors()->getMessages();
         $replaced = str_replace(['[',']', '"', '.','id'], '', json_encode(array_values($messages)));
