@@ -141,6 +141,7 @@ class BooksController extends Controller
        //finding the book
         $bookCollection = $this->bookRepository->findBookByName($bookName);
        //checking if it throws error
+
         if (is_string($bookCollection)) return $this->apiResponse->respondWithError('Error fetching the book from the api');
         //returning the final data
         return $this->apiResponse->respondWithNoPagination(new ExternalBookResourceCollection($bookCollection));

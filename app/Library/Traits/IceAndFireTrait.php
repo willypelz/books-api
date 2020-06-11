@@ -24,7 +24,8 @@ trait IceAndFireTrait
     public function getIceAndFireBooks()
     {
         try {
-            return (Http::get($_ENV['ICE_AND_FIRE_URL']))->json();
+            return (Http::get('https://www.anapioficeandfire.com/api/books'))->json();
+            //            return (Http::get($_ENV['ICE_AND_FIRE_URL']))->json();
         } catch (\Exception $e) {
             return 'error getting book from external source';
         }

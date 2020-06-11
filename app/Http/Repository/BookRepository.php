@@ -86,13 +86,16 @@ class BookRepository
      */
     public function findBookByName($name)
     {
+        $query = self::filterInput($name);
+
         $bookCollection = array();
 
         $books = $this->getAllBooksFromExternal();
 
         if (is_string($books)) return $books;
+
         for ($bk = 0; $bk < count($books); $bk++) {
-            if ($books[$bk]['name'] == $name) {
+            if ($books[$bk]['name'] == $query) {
                 array_push($bookCollection, $books[$bk]);
             }
         }
@@ -106,6 +109,14 @@ class BookRepository
          * return ($book['name'] == $query) ??   $book ;
          * });
          */
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function filterInput($query){
+       return  str_replace('"', '', $query);
     }
 
 }
