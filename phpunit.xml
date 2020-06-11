@@ -18,7 +18,7 @@
             <exclude><!--    -->
                 <directory>./app/Http/Middleware</directory>
                 <directory>./app/Http/Library</directory>
-                <file>./app/User.php</file>
+                <file>./app/Http/Resources/v1/Books/BookResource.php</file>
             </exclude>
         </whitelist>
     </filter>

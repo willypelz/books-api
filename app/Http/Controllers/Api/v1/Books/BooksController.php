@@ -76,7 +76,7 @@ class BooksController extends Controller
     public function store(CreateBookRequest $request, Book $book)
     {
         $book = $book->create($request->toArray());
-        return $this->apiResponse->respondWithNoPagination(new BookResource($book),
+        return $this->apiResponse->respondWithNoPagination($book,
             'Book created successfully');
     }
 
@@ -104,9 +104,10 @@ class BooksController extends Controller
      * @param UpdateBookRequest $request
      * @return void
      */
-    public function update(UpdateBookRequest $request)
+    public function update(UpdateBookRequest $request, $id)
     {
-        $updatedBook = $this->bookRepository->updateUser($request);
+         $updatedBook = $this->bookRepository->updateUser($request, $id);
+         if(is_string($updatedBook)) return $this->apiResponse->respondWithError($updatedBook);
         return $this->apiResponse->respondWithNoPagination($updatedBook,
             "The book $updatedBook->name was updated successfully");
     }

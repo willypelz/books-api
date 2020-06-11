@@ -95,6 +95,31 @@ class BookTest extends TestCase
      * @return void
      */
     /** @test */
+    public function it_returns_error_when_book_was_updated()
+    {
+        $data = [
+            'name' => 'Asefon',
+            'isbn' => '123-234-ael',
+            'authors' => 'williams Michael, Asefon Pelumi',
+            'number_of_pages' => 25,
+            'publisher' => 'pelumiasefon@gmail.com',
+            'country' => 'Nigeria',
+            'release_date' => '2020-06-09',
+
+        ];
+
+        $response = $this->patchJson('/api/v1/books/' . 40, $data);
+        $response->assertStatus(JsonResponse::HTTP_OK)
+            ->assertJson(["error" => "Book to be updated not found"]);
+    }
+
+
+    /**
+     * A basic feature test example.
+     *
+     * @return void
+     */
+    /** @test */
     public function it_returns_No_content_when_content_is_deleted()
     {
 

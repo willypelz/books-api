@@ -26,7 +26,7 @@ class BookResource extends JsonResource
     public function toArray($data)
     {
         return [
-            'id' => $data->id,
+            'id' => $data['id'],
             'name' => $data->name,
             'isbn' => $data->isbn,
             'authors' => is_array($data->authors) ? $data->authors : self::formatToArray($data->authors),
