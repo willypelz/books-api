@@ -35,17 +35,18 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
    9. Generate an application key
    10. `php artisan key:generate`
    11. create a database called `booksapi` in your database 
-   12. update the env files with your mysql connection details 
+   12. update the env files with your mysql connection details that you have on your system 
 
 
     DB_CONNECTION=mysql  
-    DB_HOST=127.0.0.1  
-    DB_PORT=3306  
+    DB_HOST=YOUR_HOST  
+    DB_PORT=MYSQL_PORT  
     DB_DATABASE=booksapi  
-    DB_USERNAME=root  
-    DB_PASSWORD=
+    DB_USERNAME=MYSQL_USER_NAME  
+    DB_PASSWORD=MYSQL_PASSWORD
+    
 13. ensure the iceandfire base api is being setup in the .env files 
-14. ICE_AND_FIRE_URL='https://www.anapioficeandfire.com/api/books'`
+14. ICE_AND_FIRE_URL='https://www.anapioficeandfire.com/api/books'` **** IT HAS BEEN TAKEN CAREOF: JUST FOR EASY TESTING
 15. Running migration data into the database 
 16. `php artisan migrate`
 17. serving the project 
@@ -58,6 +59,14 @@ In order to run the feature test that was written
 	`php ./vendor/bin/phpunit`
 when you want to generate a coverage 
 `php ./vendor/bin/phpunit --coverage-html ./coverage`
+
+##  Testing the Application (user testing)
+
+1. Note:: ** when creating an author in the application you have to arrange the name of the authors separated with commas
+
+2. when testing the external application you can use any of the strings to search for the name of the book 
+
+`"name"  or "name or name" or name`
 
 ## Note
 <span style="color:red">Please note that the  `/` is for linux and mac terminal which applies to bash terminal also.
