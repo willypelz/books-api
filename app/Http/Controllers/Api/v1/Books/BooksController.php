@@ -29,18 +29,24 @@ class BooksController extends Controller
 
     protected $bookRepository;
     protected $apiResponse;
-    protected
+    protected $bookResource;
 
 
     /**
      * BooksController constructor.
      * @param BookRepository $bookRepository
      * @param ApiResponse $apiResponse
+     * @param BookResource $bookResource
      */
-    public function __construct(BookRepository $bookRepository, ApiResponse $apiResponse)
+    public function __construct(
+        BookRepository $bookRepository,
+        ApiResponse $apiResponse,
+        BookResource $bookResource
+    )
     {
         $this->bookRepository = $bookRepository;
         $this->apiResponse = $apiResponse;
+        $this->bookResource = $bookResource;
     }
 
     /**
@@ -57,10 +63,8 @@ class BooksController extends Controller
      */
     public function index()
     {
-        return  (new BookResource)->transformCollection($this->bookRepository->getAllBooks()->toArray());
-        return $this->apiResponse->respondWithDataAndStatusOnly(
-            (new BookResource)->transformCollection($this->bookRepository->getAllBooks(), JsonResponse::HTTP_OK)
-        );
+        $books = $this->bookResource->transformCollection($this->bookRepository->getAllBooks()->toArray());
+        return $this->apiResponse->respondWithDataStatusAndCodeOnly($books, JsonResponse::HTTP_OK);
     }
 
 
@@ -69,7 +73,7 @@ class BooksController extends Controller
      *
      *  Books Collection
      *
-     * An Endpoint to get all Books in the system
+     * An Endpoint to store book in the system
      *
      * @param CreateBookRequest $request
      * @param Book $book
@@ -81,8 +85,8 @@ class BooksController extends Controller
     {
         $book = $book->create($request->toArray());
         $book['hide_id'] = true;
-        return $this->apiResponse->respondWithDataAndStatusOnly(
-            ['book' => (new BookResource)->transform($book)], JsonResponse::HTTP_CREATED);
+        return $this->apiResponse->respondWithDataStatusAndCodeOnly(
+            ['book' => $this->bookResource->transform($book)], JsonResponse::HTTP_CREATED);
     }
 
 
@@ -91,7 +95,7 @@ class BooksController extends Controller
      *
      *  Books Collection
      *
-     * An Endpoint to get all Books in the system
+     * An Endpoint to get single Book detail in the system
      *
      * @param Book $book
      * @return \Illuminate\Http\JsonResponse
@@ -100,11 +104,12 @@ class BooksController extends Controller
      */
     public function show(Book $book)
     {
-        return $this->apiResponse->respondWithNoPagination($book, 'Book fetch successfully');
+        return $this->apiResponse->respondWithDataStatusAndCodeOnly(
+            $this->bookResource->transform($book));
     }
 
     /**
-     * Remove the specified resource from storage.
+     * update the specified resource from storage.
      *
      * @param UpdateBookRequest $request
      * @return void
@@ -115,9 +120,8 @@ class BooksController extends Controller
         if (is_string($updatedBook)) return $this->apiResponse->respondWithError($updatedBook);
 
 
-        return (new BookResource)->transform($updatedBook);
         return $this->apiResponse->respondWithNoPagination(
-             new BookResource($updatedBook),
+            $this->bookResource->transform($updatedBook),
             "The book $updatedBook->name was updated successfully");
     }
 
@@ -153,7 +157,7 @@ class BooksController extends Controller
 
         if (is_string($bookCollection)) return $this->apiResponse->respondWithError('Error fetching the book from the api');
         //returning the final data
-        return $this->apiResponse->respondWithNoPagination(new ExternalBookResourceCollection($bookCollection));
+        return $this->apiResponse->respondWithDataStatusAndCodeOnly(new ExternalBookResourceCollection($bookCollection));
     }
 
 }
