@@ -32,8 +32,8 @@ class BookTest extends TestCase
         ];
 
         $response = $this->postJson('/api/v1/books', $data);
-        $response->assertStatus(JsonResponse::HTTP_OK)
-            ->assertJson(["status_code" => JsonResponse::HTTP_OK]);
+        $response->assertStatus(JsonResponse::HTTP_CREATED)
+            ->assertJson(["status_code" => JsonResponse::HTTP_CREATED]);
     }
 
 
