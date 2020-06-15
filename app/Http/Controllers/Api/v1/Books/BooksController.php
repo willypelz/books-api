@@ -65,11 +65,12 @@ class BooksController extends Controller
     {
 
         if ($request->search) {
-            $books = $this->bookResource->transformCollection($this->bookRepository->searchBookTable($request->search)->toArray());
+            $books =$this->bookRepository->searchBookTable($request->search);
         } else {
-            $books = $this->bookResource->transformCollection($this->bookRepository->getAllBooks()->toArray());
+            $books = $this->bookRepository->getAllBooks();
         }
-        return $this->apiResponse->respondWithDataStatusAndCodeOnly($books, JsonResponse::HTTP_OK);
+        return $this->apiResponse->respondWithDataStatusAndCodeOnly(
+            $this->bookResource->transformCollection($books->toArray()), JsonResponse::HTTP_OK);
     }
 
 
