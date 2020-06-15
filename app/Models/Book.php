@@ -31,7 +31,10 @@ class Book extends Model implements Searchable
 
     protected $searchable_fields = [
         'name',
-        'isbn'
+        'isbn',
+        'country',
+        'publisher',
+        'release_date'
     ];
 
     public function search(string $search)
