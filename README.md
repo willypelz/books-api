@@ -60,7 +60,7 @@ In order to run the feature test that was written
 when you want to generate a coverage 
 `php ./vendor/bin/phpunit --coverage-html ./coverage`
 
-This generates an automatic html files in the application in the coverage folder, which can be located in the root directory 
+This generates html report files in the application in the coverage folder, which can be located in the root directory 
 
 
 ##  Testing the Application (user testing)
