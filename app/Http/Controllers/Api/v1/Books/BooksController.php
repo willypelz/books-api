@@ -65,7 +65,7 @@ class BooksController extends Controller
     {
 
         if ($request->search) {
-            $books = $this->bookRepository->searchBookTable($request->search);
+            $books = $this->bookResource->transformCollection($this->bookRepository->searchBookTable($request->search)->toArray());
         } else {
             $books = $this->bookResource->transformCollection($this->bookRepository->getAllBooks()->toArray());
         }
