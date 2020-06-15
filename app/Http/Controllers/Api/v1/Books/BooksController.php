@@ -56,14 +56,19 @@ class BooksController extends Controller
      *
      * An Endpoint to get all Book in the system
      *
-     * @param Book $books
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @apiResourceCollection \App\Http\Resources\v1\Book\BookResourceCollection
      * @apiResourceModel \App\Models\Book
      */
-    public function index()
+    public function index(Request $request)
     {
-        $books = $this->bookResource->transformCollection($this->bookRepository->getAllBooks()->toArray());
+
+        if ($request->search) {
+            $books = $this->bookRepository->searchBookTable($request->search);
+        } else {
+            $books = $this->bookResource->transformCollection($this->bookRepository->getAllBooks()->toArray());
+        }
         return $this->apiResponse->respondWithDataStatusAndCodeOnly($books, JsonResponse::HTTP_OK);
     }
 

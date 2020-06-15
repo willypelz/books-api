@@ -12,6 +12,8 @@
 namespace App\Http\Repository;
 
 
+use App\Library\Providers\SearchProvider\Factories\ResourceCollectionFactory;
+use App\Library\Providers\SearchProvider\Factories\SearchFactory;
 use App\Library\Traits\IceAndFireTrait;
 use App\Models\Book;
 use function GuzzleHttp\Promise\all;
@@ -118,5 +120,16 @@ class BookRepository
     {
         return str_replace('"', '', $query);
     }
+
+
+
+
+    public function searchBookTable($query){
+
+        $searchable_model = SearchFactory::create('book');
+        return $searchable_model->search($query);
+
+//        return $this->book->scopeSearch($this->book->all(), '123', 'isbn');
+      }
 
 }

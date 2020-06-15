@@ -10,10 +10,14 @@
 
 namespace App\Models;
 
+use App\Library\Providers\SearchProvider\Contracts\Searchable;
+use App\Library\Providers\SearchProvider\Traits\Searcher;
 use Illuminate\Database\Eloquent\Model;
 
-class Book extends Model
+class Book extends Model implements Searchable
 {
+
+    use Searcher;
     /**
      * The attributes that should be mutated to dates.
      *
@@ -25,5 +29,18 @@ class Book extends Model
 
     protected $dates = ['deleted_at'];
 
+    protected $searchable_fields = [
+        'name',
+        'isbn'
+    ];
 
+    public function search(string $search)
+    {
+        $a = $this->searchable_fields;
+        return self::where(function ($query) use ($a, $search) {
+            foreach ($this->searchable_fields as $key) {
+                $query->orWhere($key, 'LIKE', "%$search%");
+            }
+        })->get();
+    }
 }
