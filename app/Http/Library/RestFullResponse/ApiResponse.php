@@ -137,8 +137,17 @@ class ApiResponse extends Controller
         return $this->setStatusCode(IlluminateResponse::HTTP_OK)->respond([
             'status_code' => $this->getStatusCode(),
             'status' => 'success',
-            'data' => $data,
             'message' => $message,
+            'data' => $data,
+        ]);
+    }
+
+    public function respondWithDataAndStatusOnly($data, $statusCode = IlluminateResponse::HTTP_OK)
+    {
+        return $this->setStatusCode($statusCode)->respond([
+            'status_code' => $this->getStatusCode(),
+            'status' => 'success',
+            'data' => $data
         ]);
     }
 

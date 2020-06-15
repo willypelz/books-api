@@ -12,10 +12,11 @@
 
 namespace App\Http\Resources\v1\Books;
 
+use App\Http\Resources\v1\Transformer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class BookResource extends JsonResource
+class BookResource extends Transformer
 {
     /**
      * Transform the resource into an array.
@@ -23,10 +24,11 @@ class BookResource extends JsonResource
      * @param $data
      * @return array
      */
-    public function toArray($data)
+    public function transform($data)
     {
-        return [
-            'id' => $data['id'],
+        if (is_array($data)) $data = (object)$data;
+
+        $response_data = [
             'name' => $data->name,
             'isbn' => $data->isbn,
             'authors' => is_array($data->authors) ? $data->authors : self::formatToArray($data->authors),
@@ -35,6 +37,14 @@ class BookResource extends JsonResource
             'country' => $data->country,
             'release_date' => $data->release_date,
         ];
+
+        if (isset($data->hide_id) && $data->hide_id) {
+            return $response_data;
+        } else {
+            $data_ = ['id' => $data->id];
+            return array_merge($data_, $response_data);
+
+        }
     }
 
     /**

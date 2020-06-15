@@ -19,7 +19,9 @@ use App\Http\Requests\UpdateBookRequest;
 use App\Http\Resources\v1\Books\BookResource;
 use App\Http\Resources\v1\Books\BookResourceCollection;
 use App\Http\Resources\v1\Books\ExternalBookResourceCollection;
+use App\Http\Resources\v1\Books\SingleBookResource;
 use App\Models\Book;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class BooksController extends Controller
@@ -27,6 +29,7 @@ class BooksController extends Controller
 
     protected $bookRepository;
     protected $apiResponse;
+    protected
 
 
     /**
@@ -54,8 +57,9 @@ class BooksController extends Controller
      */
     public function index()
     {
-        return $this->apiResponse->respondWithNoPagination(
-            new BookResourceCollection($this->bookRepository->getAllBooks())
+        return  (new BookResource)->transformCollection($this->bookRepository->getAllBooks()->toArray());
+        return $this->apiResponse->respondWithDataAndStatusOnly(
+            (new BookResource)->transformCollection($this->bookRepository->getAllBooks(), JsonResponse::HTTP_OK)
         );
     }
 
@@ -76,8 +80,9 @@ class BooksController extends Controller
     public function store(CreateBookRequest $request, Book $book)
     {
         $book = $book->create($request->toArray());
-        return $this->apiResponse->respondWithNoPagination($book,
-            'Book created successfully');
+        $book['hide_id'] = true;
+        return $this->apiResponse->respondWithDataAndStatusOnly(
+            ['book' => (new BookResource)->transform($book)], JsonResponse::HTTP_CREATED);
     }
 
 
@@ -106,9 +111,13 @@ class BooksController extends Controller
      */
     public function update(UpdateBookRequest $request, $id)
     {
-         $updatedBook = $this->bookRepository->updateUser($request, $id);
-         if(is_string($updatedBook)) return $this->apiResponse->respondWithError($updatedBook);
-        return $this->apiResponse->respondWithNoPagination($updatedBook,
+        $updatedBook = $this->bookRepository->updateUser($request, $id);
+        if (is_string($updatedBook)) return $this->apiResponse->respondWithError($updatedBook);
+
+
+        return (new BookResource)->transform($updatedBook);
+        return $this->apiResponse->respondWithNoPagination(
+             new BookResource($updatedBook),
             "The book $updatedBook->name was updated successfully");
     }
 
@@ -138,9 +147,9 @@ class BooksController extends Controller
         $bookName = $request->name;
         //checking if the book was supplied
         if (empty($bookName)) return $this->apiResponse->respondWithError('Invalid Book name supplied');
-       //finding the book
+        //finding the book
         $bookCollection = $this->bookRepository->findBookByName($bookName);
-       //checking if it throws error
+        //checking if it throws error
 
         if (is_string($bookCollection)) return $this->apiResponse->respondWithError('Error fetching the book from the api');
         //returning the final data
