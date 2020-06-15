@@ -60,6 +60,9 @@ In order to run the feature test that was written
 when you want to generate a coverage 
 `php ./vendor/bin/phpunit --coverage-html ./coverage`
 
+This generates an automatic html files in the application in the coverage folder, which can be located in the root directory 
+
+
 ##  Testing the Application (user testing)
 
 1. Note:: ** when creating an author in the application you have to arrange the name of the authors separated with commas
