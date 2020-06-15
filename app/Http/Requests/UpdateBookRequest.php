@@ -37,13 +37,12 @@ class UpdateBookRequest extends FormRequest
     public function rules()
     {
         return [
-//            'name' => 'required',
-//            'isbn' => 'required|',
-//            'authors' => 'required|',
-//            'number_of_pages' => 'required|integer',
-//            'publisher' => 'required|',
-//            'country' => 'required|',
-//            'release_date' => 'required|date',
+            'name' => 'string',
+            'isbn' => 'string',
+            'number_of_pages' => 'integer',
+            'publisher' => 'string',
+            'country' => 'string',
+            'release_date' => 'date',
         ];
     }
 

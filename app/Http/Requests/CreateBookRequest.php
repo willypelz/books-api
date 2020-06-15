@@ -36,12 +36,12 @@ class CreateBookRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'isbn' => 'required|',
+            'name' => 'required|string',
+            'isbn' => 'required|string',
             'authors' => 'required|',
             'number_of_pages' => 'required|integer',
-            'publisher' => 'required|',
-            'country' => 'required|',
+            'publisher' => 'required|string',
+            'country' => 'required|string',
             'release_date' => 'required|date',
         ];
     }
