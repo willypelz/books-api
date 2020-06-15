@@ -75,6 +75,7 @@ Ensure you setup xdebug on your system. <small> [Xdebug Setup for local machine 
 
 3. To filter the books you need to search with you desired parameters as shown below 
 
+`http://localhost:8000/api/v1/books?search=Game of throne`  
 `http://localhost:8000/api/v1/books?search="Game of throne"`  
 `http://localhost:8000/api/v1/books?search=2020`  
 
