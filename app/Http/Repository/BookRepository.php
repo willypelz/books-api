@@ -39,6 +39,12 @@ class BookRepository
     }
 
 //     get single book in the application
+
+    /**
+     * @param $table_field
+     * @param $query
+     * @return mixed
+     */
     public function getSingleBook($table_field, $query)
     {
         return $this->book->where($table_field, $query)->first();

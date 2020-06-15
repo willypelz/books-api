@@ -142,6 +142,11 @@ class ApiResponse extends Controller
         ]);
     }
 
+    /**
+     * @param $data
+     * @param int $statusCode
+     * @return mixed
+     */
     public function respondWithDataStatusAndCodeOnly($data, $statusCode = IlluminateResponse::HTTP_OK)
     {
         return $this->setStatusCode($statusCode)->respond([

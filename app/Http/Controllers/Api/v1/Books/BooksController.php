@@ -109,7 +109,7 @@ class BooksController extends Controller
     }
 
     /**
-     * update the specified resource from storage.
+     * An Endpoint to update the specified resource from storage.
      *
      * @param UpdateBookRequest $request
      * @return void
@@ -119,7 +119,6 @@ class BooksController extends Controller
         $updatedBook = $this->bookRepository->updateUser($request, $id);
         if (is_string($updatedBook)) return $this->apiResponse->respondWithError($updatedBook);
 
-
         return $this->apiResponse->respondWithNoPagination(
             $this->bookResource->transform($updatedBook),
             "The book $updatedBook->name was updated successfully");
@@ -127,7 +126,7 @@ class BooksController extends Controller
 
 
     /**
-     * Remove the specified resource from storage.
+     * An Endpoint to Remove the specified resource from storage.
      *
      * @param Book $book
      * @return void
@@ -141,7 +140,7 @@ class BooksController extends Controller
 
 
     /**
-     * Get a book from external storage.
+     * An Endpoint to Get a book from external storage.
      *
      * @param Request $request
      * @return void
