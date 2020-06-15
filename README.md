@@ -62,6 +62,8 @@ when you want to generate a coverage
 
 This generates html report files in the application in the coverage folder, which can be located in the root directory 
 
+### Ensure you setup xdebug on your system.  ![Xdebug Setup for local machine (xampp)](https://medium.com/d6-digital/installing-xdebug-for-xampp-with-php-in-windows-d2b750861118)
+
 
 ##  Testing the Application (user testing)
 
