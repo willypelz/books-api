@@ -64,7 +64,6 @@ This generates html report files in the application in the coverage folder, whic
 
 ### Ensure you setup xdebug on your system.  ![Xdebug Setup for local machine (xampp)](https://medium.com/d6-digital/installing-xdebug-for-xampp-with-php-in-windows-d2b750861118)
 
-
 ##  Testing the Application (user testing)
 
 1. Note:: ** when creating an author in the application you have to arrange the name of the authors separated with commas

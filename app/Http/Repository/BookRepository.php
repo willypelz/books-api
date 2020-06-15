@@ -55,14 +55,9 @@ class BookRepository
     {
        $book = $this->getSingleBook('id', $id);
         if(!$book) return 'Book to be updated not found';
-        $book->name = $request->name;
-        $book->isbn = $request->isbn;
-        $book->authors = @$request->authors;
-        $book->country = @$request->country;
-        $book->number_of_pages = @$request->number_of_pages;
-        $book->publisher = @$request->publisher;
-        $book->release_date = @$request->release_date;
-        $book->save();
+
+        $book->update($request->toArray());
+//        $book->save();
         return $book;
     }
 

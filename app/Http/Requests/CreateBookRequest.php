@@ -42,7 +42,7 @@ class CreateBookRequest extends FormRequest
             'number_of_pages' => 'required|integer',
             'publisher' => 'required|',
             'country' => 'required|',
-//            'release_date' => 'required|date',
+            'release_date' => 'required|date',
         ];
     }
 
