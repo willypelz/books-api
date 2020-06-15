@@ -53,11 +53,9 @@ class BookRepository
      */
     public function updateUser($request, $id)
     {
-       $book = $this->getSingleBook('id', $id);
-        if(!$book) return 'Book to be updated not found';
-
+        $book = $this->getSingleBook('id', $id);
+        if (!$book) return 'Book to be updated not found';
         $book->update($request->toArray());
-//        $book->save();
         return $book;
     }
 
@@ -110,8 +108,9 @@ class BookRepository
      * @param $query
      * @return mixed
      */
-    public function filterInput($query){
-       return  str_replace('"', '', $query);
+    public function filterInput($query)
+    {
+        return str_replace('"', '', $query);
     }
 
 }
