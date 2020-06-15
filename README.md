@@ -73,6 +73,11 @@ Ensure you setup xdebug on your system. <small> [Xdebug Setup for local machine 
 
 `"name"  or "name or name" or name`
 
+3. To filter the books you need to search with you desired parameters as shown below 
+
+`http://localhost:8000/api/v1/books?search=Game of throne`  
+
+
 ## Note
 <span style="color:red">Please note that the  `/` is for linux and mac terminal which applies to bash terminal also.
 if you are using window command line with no bash you will have to use the `\`   </span>

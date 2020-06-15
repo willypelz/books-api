@@ -127,9 +127,7 @@ class BookRepository
     public function searchBookTable($query){
 
         $searchable_model = SearchFactory::create('book');
-        return $searchable_model->search($query);
-
-//        return $this->book->scopeSearch($this->book->all(), '123', 'isbn');
+        return $searchable_model->search(self::filterInput($query));
       }
 
 }
