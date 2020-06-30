@@ -16,6 +16,7 @@ use App\Library\Providers\SearchProvider\Factories\ResourceCollectionFactory;
 use App\Library\Providers\SearchProvider\Factories\SearchFactory;
 use App\Library\Traits\IceAndFireTrait;
 use App\Models\Book;
+use App\Service\BookService;
 use function GuzzleHttp\Promise\all;
 
 class BookRepository
@@ -23,10 +24,12 @@ class BookRepository
     use IceAndFireTrait;
 
     private $book;
+    private $bookService;
 
-    public function __construct(Book $book)
+    public function __construct(Book $book, BookService $bookService)
     {
         $this->book = $book;
+        $this->bookService = $bookService;
     }
 
 
@@ -59,7 +62,7 @@ class BookRepository
      * @param $request
      * @return Book
      */
-    public function updateUser($request, $id)
+    public function updateBook($request, $id)
     {
         $book = $this->getSingleBook('id', $id);
         if (!$book) return 'Book to be updated not found';
@@ -75,7 +78,7 @@ class BookRepository
      */
     public function getAllBooksFromExternal()
     {
-        return $this->getIceAndFireBooks();
+        return $this->getWithFilter();
     }
 
 
@@ -89,27 +92,11 @@ class BookRepository
     {
         $query = self::filterInput($name);
 
-        $bookCollection = array();
-
-        $books = $this->getAllBooksFromExternal();
+        $books = $this->bookService->getFilteredBooks('name', $name);
 
         if (is_string($books)) return $books;
 
-        for ($bk = 0; $bk < count($books); $bk++) {
-            if ($books[$bk]['name'] == $query) {
-                array_push($bookCollection, $books[$bk]);
-            }
-        }
-
-        return $bookCollection;
-
-//       alternative is to use laravel filter collect helper function or recursion method
-        /**
-         * $filteredBook = collect($books)->filter(
-         * function ($book) use ($query) {
-         * return ($book['name'] == $query) ??   $book ;
-         * });
-         */
+        return $books;
     }
 
     /**
@@ -122,12 +109,11 @@ class BookRepository
     }
 
 
-
-
-    public function searchBookTable($query){
+    public function searchBookTable($query)
+    {
 
         $searchable_model = SearchFactory::create('book');
         return $searchable_model->search(self::filterInput($query));
-      }
+    }
 
 }

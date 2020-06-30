@@ -19,15 +19,16 @@ use Illuminate\Support\Facades\Http;
 trait IceAndFireTrait
 {
     /**
+     * @param $params
      * @return array|string
      */
-    public function getIceAndFireBooks()
+    public function getWithFilter($params)
     {
         try {
-            return (Http::get('https://www.anapioficeandfire.com/api/books'))->json();
-            //            return (Http::get($_ENV['ICE_AND_FIRE_URL']))->json();
+            return (Http::get(config('services.iceAndFire.url') . $params))->json();
         } catch (\Exception $e) {
             return 'error getting book from external source';
         }
     }
+
 }

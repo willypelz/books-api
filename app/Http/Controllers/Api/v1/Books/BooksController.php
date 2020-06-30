@@ -122,7 +122,7 @@ class BooksController extends Controller
      */
     public function update(UpdateBookRequest $request, $id)
     {
-        $updatedBook = $this->bookRepository->updateUser($request, $id);
+        $updatedBook = $this->bookRepository->updateBook($request, $id);
         if (is_string($updatedBook)) return $this->apiResponse->respondWithError($updatedBook);
 
         return $this->apiResponse->respondWithNoPagination(
