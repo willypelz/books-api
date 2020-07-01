@@ -64,8 +64,8 @@ class BooksController extends Controller
     public function index(Request $request)
     {
 
-        if ($request->search) {
-            $books =$this->bookRepository->searchBookTable($request->search);
+        if ($request->all()) {
+            $books =$this->bookRepository->searchBookTable($request->all());
         } else {
             $books = $this->bookRepository->getAllBooks();
         }

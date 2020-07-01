@@ -29,13 +29,14 @@ class Book extends Model implements Searchable
 
     protected $dates = ['deleted_at'];
 
-    protected $searchable_fields = [
+    public static $searchable_fields = [
         'name',
         'isbn',
         'country',
         'publisher',
         'release_date'
     ];
+
 
     public function search(string $search)
     {
@@ -45,5 +46,13 @@ class Book extends Model implements Searchable
                 $query->orWhere($key, 'LIKE', "%$search%");
             }
         })->get();
+    }
+
+    /**
+     * @return array
+     */
+    public function getSearchableFields(): array
+    {
+        return $this->searchable_fields;
     }
 }

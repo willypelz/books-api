@@ -12,7 +12,6 @@
 namespace App\Http\Repository;
 
 
-use App\Library\Providers\SearchProvider\Factories\ResourceCollectionFactory;
 use App\Library\Providers\SearchProvider\Factories\SearchFactory;
 use App\Library\Traits\IceAndFireTrait;
 use App\Models\Book;
@@ -21,11 +20,15 @@ use function GuzzleHttp\Promise\all;
 
 class BookRepository
 {
-    use IceAndFireTrait;
 
     private $book;
     private $bookService;
 
+    /**
+     * BookRepository constructor.
+     * @param Book $book
+     * @param BookService $bookService
+     */
     public function __construct(Book $book, BookService $bookService)
     {
         $this->book = $book;
@@ -72,17 +75,6 @@ class BookRepository
 
 
     /**
-     * function to get books from external api
-     *
-     * @return array|string
-     */
-    public function getAllBooksFromExternal()
-    {
-        return $this->getWithFilter();
-    }
-
-
-    /**
      * function to get find a book by its name
      *
      * @param $name
@@ -111,9 +103,16 @@ class BookRepository
 
     public function searchBookTable($query)
     {
+        if(self::isSearchableFieldsSupplied($query)){
+            dd(1111);
+        }else{
+            dd(33333);
+        }
+    }
 
-        $searchable_model = SearchFactory::create('book');
-        return $searchable_model->search(self::filterInput($query));
+    public function isSearchableFieldsSupplied($data)
+    {
+     return count(array_intersect(array_keys($data), Book::$searchable_fields));
     }
 
 }
