@@ -46,7 +46,7 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
     DB_PASSWORD=MYSQL_PASSWORD
     
 13. ensure the iceandfire base api is being setup in the .env files 
-14. ICE_AND_FIRE_URL='https://www.anapioficeandfire.com/api/books'` **** IT HAS BEEN TAKEN CAREOF: JUST FOR EASY TESTING
+14. ICE_AND_FIRE_URL='https://www.anapioficeandfire.com/api/' **** IT HAS BEEN TAKEN CAREOF: JUST FOR EASY TESTING
 15. Running migration data into the database 
 16. `php artisan migrate`
 17. serving the project 
