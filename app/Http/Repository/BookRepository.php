@@ -101,16 +101,49 @@ class BookRepository
     }
 
 
+    /**
+     * @param $query
+     * @return mixed|string
+     */
     public function searchBookTable($query)
     {
         if (self::isSearchableFieldsSupplied($query)) {
+
             $key = array_key_first($query);
-            if ($key == 'release_date') return $this->book->whereDate($key, $query[$key])->get();
-            return $this->book->where($key, 'LIKE', "%$query[$key]%")->get();
+
+            if ($key == 'release_date') return self::searchTableByDate($key, $query[$key]);
+
+            return self::searchTableByColumn($key, $query[$key]);
         }
+
         return 'invalid search key supplied';
     }
 
+
+    /**
+     * @param $table
+     * @param $query
+     * @return mixed
+     */
+    public function searchTableByColumn($table, $query)
+    {
+        return $this->book->where($table, 'LIKE', "%$query%")->get();
+    }
+
+    /**
+     * @param $table
+     * @param $query
+     * @return mixed
+     */
+    public function searchTableByDate($table, $query)
+    {
+        return $this->book->whereDate($table, $query)->get();
+    }
+
+    /**
+     * @param $data
+     * @return int
+     */
     public function isSearchableFieldsSupplied($data)
     {
         return count(array_intersect(array_keys($data), Book::$searchable_fields));

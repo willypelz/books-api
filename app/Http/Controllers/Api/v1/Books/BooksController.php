@@ -65,7 +65,7 @@ class BooksController extends Controller
     {
 
         if ($request->all()) {
-            $books =$this->bookRepository->searchBookTable($request->all());
+            $books = $this->bookRepository->searchBookTable($request->all());
             if (is_string($books)) return $this->apiResponse->respondWithError($books);
         } else {
             $books = $this->bookRepository->getAllBooks();
