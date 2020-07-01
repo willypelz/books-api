@@ -57,6 +57,35 @@ class BookTest extends TestCase
      * @return void
      */
     /** @test */
+    public function it_returns_success_when_getting_filtered_books()
+    {
+
+        $response = $this->getJson('/api/v1/books?name=Asefon');
+        $response->assertStatus(JsonResponse::HTTP_OK)
+            ->assertJson(["status_code" => JsonResponse::HTTP_OK]);
+    }
+
+    /**
+     * A basic feature test example.
+     *
+     * @return void
+     */
+    /** @test */
+    public function it_returns_error_when_getting_filtered_books()
+    {
+
+        $response = $this->getJson('/api/v1/books?wrongKey=Asefon');
+        $response->assertStatus(JsonResponse::HTTP_OK)
+            ->assertJson(["error" => "invalid search key supplied"]);
+    }
+
+
+    /**
+     * A basic feature test example.
+     *
+     * @return void
+     */
+    /** @test */
     public function it_returns_single_book_when_is_fetched()
     {
 
