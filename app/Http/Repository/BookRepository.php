@@ -103,16 +103,17 @@ class BookRepository
 
     public function searchBookTable($query)
     {
-        if(self::isSearchableFieldsSupplied($query)){
-            dd(1111);
-        }else{
-            dd(33333);
+        if (self::isSearchableFieldsSupplied($query)) {
+            $key = array_key_first($query);
+            if ($key == 'release_date') return $this->book->whereDate($key, $query[$key])->get();
+            return $this->book->where($key, 'LIKE', "%$query[$key]%")->get();
         }
+        return 'invalid search key supplied';
     }
 
     public function isSearchableFieldsSupplied($data)
     {
-     return count(array_intersect(array_keys($data), Book::$searchable_fields));
+        return count(array_intersect(array_keys($data), Book::$searchable_fields));
     }
 
 }
